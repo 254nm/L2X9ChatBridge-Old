@@ -17,7 +17,7 @@ import java.awt.*;
 
 public final class BetaChatBridge extends JavaPlugin {
     TextChannel channel;
-    String botToken = "NjY3NjQ1OTIyMDQ1NTkxNTUz.XiFvuA.ChjWz9ijv8Oc5Tj8kNKA-9MWyDI";
+    String botToken = "NOT THE REAL TOKEN LOL";
     String channelID = "760624272656826398";
     JDA jda;
 

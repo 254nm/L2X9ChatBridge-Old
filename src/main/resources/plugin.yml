@@ -1,0 +1,7 @@
+name: BetaChatBridge
+version: ${project.version}
+main: org.l2x9.betachatbridge.BetaChatBridge
+prefix: L2X9ChatBridge
+authors: [ 254n_m ]
+description: Discord chat bridge for minecraft beta 1.7
+website: https://www.l2x9.org/

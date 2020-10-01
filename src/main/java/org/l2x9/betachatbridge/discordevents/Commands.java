@@ -13,6 +13,7 @@ import java.util.List;
 
 public class Commands extends ListenerAdapter {
     BetaChatBridge plugin;
+
     public Commands(BetaChatBridge betaChatBridge) {
         plugin = betaChatBridge;
     }
@@ -22,33 +23,33 @@ public class Commands extends ListenerAdapter {
         String PREFIX = "!=";
         if (event.getMessage().getContentRaw().startsWith(PREFIX)) {
             String[] args = event.getMessage().getContentRaw().split(" ");
-                switch (args[0]) {
-                    case "!=online":
-                        EmbedBuilder embedBuilder = new EmbedBuilder();
-                        embedBuilder.setTitle("Online Players");
-                        embedBuilder.setColor(Color.GRAY);
-                        Player[] players = Bukkit.getServer().getOnlinePlayers();
-                        if (players.length > 0) {
-                            List<String> playerNames = new ArrayList<>();
-                            for (Player player : players) {
-                                playerNames.add(player.getName());
-                            }
-                            String nameList = String.join("\n", playerNames);
-                            embedBuilder.setDescription(nameList + "\n\n" + playerNames.size() + " / 100");
-                            embedBuilder.setAuthor(plugin.getJda().getSelfUser().getAsTag(), null, plugin.getJda().getSelfUser().getAvatarUrl());
-                            event.getChannel().sendMessage(embedBuilder.build()).queue();
-                        } else {
-                            event.getChannel().sendMessage("No online players :flushed:").queue();
+            switch (args[0]) {
+                case "!=online":
+                    EmbedBuilder embedBuilder = new EmbedBuilder();
+                    embedBuilder.setTitle("Online Players");
+                    embedBuilder.setColor(Color.GRAY);
+                    Player[] players = Bukkit.getServer().getOnlinePlayers();
+                    if (players.length > 0) {
+                        List<String> playerNames = new ArrayList<>();
+                        for (Player player : players) {
+                            playerNames.add(player.getName());
                         }
-                        break;
-                    case "!=tps":
-                        EmbedBuilder embedBuilder1 = new EmbedBuilder();
-                        embedBuilder1.setTitle("Current TPS");
-                        embedBuilder1.setColor(BetaChatBridge.getTPSColor(plugin.getTps()));
-                        embedBuilder1.setDescription("Current TPS: " + Math.round(plugin.getTps()));
-                        embedBuilder1.setAuthor(plugin.getJda().getSelfUser().getAsTag(), null, plugin.getJda().getSelfUser().getAvatarUrl());
-                        event.getChannel().sendMessage(embedBuilder1.build()).queue();
-                        break;
+                        String nameList = String.join("\n", playerNames);
+                        embedBuilder.setDescription(nameList + "\n\n" + playerNames.size() + " / 100");
+                        embedBuilder.setAuthor(plugin.getJda().getSelfUser().getAsTag(), null, plugin.getJda().getSelfUser().getAvatarUrl());
+                        event.getChannel().sendMessage(embedBuilder.build()).queue();
+                    } else {
+                        event.getChannel().sendMessage("No online players :flushed:").queue();
+                    }
+                    break;
+                case "!=tps":
+                    EmbedBuilder embedBuilder1 = new EmbedBuilder();
+                    embedBuilder1.setTitle("Current TPS");
+                    embedBuilder1.setColor(BetaChatBridge.getTPSColor(plugin.getTps()));
+                    embedBuilder1.setDescription("Current TPS: " + Math.round(plugin.getTps()));
+                    embedBuilder1.setAuthor(plugin.getJda().getSelfUser().getAsTag(), null, plugin.getJda().getSelfUser().getAvatarUrl());
+                    event.getChannel().sendMessage(embedBuilder1.build()).queue();
+                    break;
             }
         }
     }

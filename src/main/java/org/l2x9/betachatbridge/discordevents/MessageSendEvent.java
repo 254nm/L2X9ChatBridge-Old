@@ -12,6 +12,7 @@ public class MessageSendEvent extends ListenerAdapter {
     public MessageSendEvent(BetaChatBridge betaChatBridge) {
         plugin = betaChatBridge;
     }
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getChannel().equals(plugin.getChannel()) && !event.getAuthor().isBot() && !event.getMessage().getContentRaw().startsWith("!=")) {

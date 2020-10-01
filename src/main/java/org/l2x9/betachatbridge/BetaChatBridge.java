@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.l2x9.betachatbridge.antispam.ChatEvent;
+import org.l2x9.betachatbridge.antispam.Cooldown;
 import org.l2x9.betachatbridge.bukkitevents.PlayerChat;
 import org.l2x9.betachatbridge.bukkitevents.PlayerJoin;
 import org.l2x9.betachatbridge.bukkitevents.PlayerQuit;
@@ -18,8 +19,9 @@ import java.awt.*;
 
 public final class BetaChatBridge extends JavaPlugin {
     TextChannel channel;
-    String botToken = "";
+    public Cooldown cm = new Cooldown();
     String channelID = "760624272656826398";
+    String botToken = "NjY3NjQ1OTIyMDQ1NTkxNTUz.XiFvuA.ZWLd_Cjs6MVveIp6HEsHsN4boW0";
     JDA jda;
 
     public static Color getTPSColor(double i) {
@@ -51,7 +53,7 @@ public final class BetaChatBridge extends JavaPlugin {
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, new PlayerChat(this), Event.Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_JOIN, new PlayerJoin(this), Event.Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, new PlayerQuit(this), Event.Priority.Normal, this);
-        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, new ChatEvent(), Event.Priority.Normal, this);
+        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, new ChatEvent(this), Event.Priority.Highest, this);
         sendEmbed(":white_check_mark: Server Started", channel, Color.green);
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new GetTps(), 100L, 1L);
     }

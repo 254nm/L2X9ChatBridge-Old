@@ -3,22 +3,21 @@ package org.l2x9.betachatbridge.antispam;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.l2x9.betachatbridge.BetaChatBridge;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ChatEvent extends PlayerListener {
-    Cooldown cm = new Cooldown();
+    BetaChatBridge plugin;
+
+    public ChatEvent(BetaChatBridge betaChatBridge) {
+        plugin = betaChatBridge;
+    }
 
     @Override
     public void onPlayerChat(PlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (cm.checkCooldown(player)) {
-            cm.setCooldown(player, 3);
-        } else {
-            event.setCancelled(true);
-
-        }
         List<String> list = Arrays.asList("discord", ".", "dot");
         boolean hasBlackListedWord = false;
         for (String word : list) {

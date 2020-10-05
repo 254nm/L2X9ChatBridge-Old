@@ -4,9 +4,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.bukkit.event.Event;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.l2x9.betachatbridge.antispam.ChatEvent;
 import org.l2x9.betachatbridge.antispam.Cooldown;
 import org.l2x9.betachatbridge.bukkitevents.PlayerChat;
 import org.l2x9.betachatbridge.bukkitevents.PlayerJoin;
@@ -18,24 +17,23 @@ import javax.security.auth.login.LoginException;
 import java.awt.*;
 
 public final class BetaChatBridge extends JavaPlugin {
-    TextChannel channel;
     public Cooldown cm = new Cooldown();
-    String channelID = "760624272656826398";
-    String botToken = "NjY3NjQ1OTIyMDQ1NTkxNTUz.XiFvuA.ZWLd_Cjs6MVveIp6HEsHsN4boW0";
+    TextChannel channel;
+    String channelID = "Your channel id here";
+    String botToken = "Your token here";
     JDA jda;
 
-    public static Color getTPSColor(double i) {
-        if (i >= 18.0D) {
-            return Color.GREEN;
+    public static Color getTPSColor(String input) {
+        if (!input.equals("*20")) {
+            double i = Double.parseDouble(input);
+            if (i >= 18.0D) {
+                return Color.GREEN;
+            } else {
+                return i >= 13.0D && i < 18.0D ? Color.YELLOW : Color.RED;
+            }
         } else {
-            return i >= 13.0D && i < 18.0D ? Color.YELLOW : Color.RED;
+            return Color.GREEN;
         }
-    }
-
-    @Override
-    public void onDisable() {
-        sendEmbed(":x: Server Stopped", channel, Color.RED);
-        getJda().shutdown();
     }
 
     @Override
@@ -50,12 +48,17 @@ public final class BetaChatBridge extends JavaPlugin {
         } catch (LoginException | InterruptedException e) {
             e.printStackTrace();
         }
-        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, new PlayerChat(this), Event.Priority.Normal, this);
-        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_JOIN, new PlayerJoin(this), Event.Priority.Normal, this);
-        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, new PlayerQuit(this), Event.Priority.Normal, this);
-        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, new ChatEvent(this), Event.Priority.Highest, this);
+        //getServer().getPluginManager().registerEvents(new PlayerAdvancement(this), this); //TODO Add this feature
+        getServer().getPluginManager().registerEvents(new PlayerChat(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuit(this), this);
         sendEmbed(":white_check_mark: Server Started", channel, Color.green);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new GetTps(), 100L, 1L);
+    }
+
+    @Override
+    public void onDisable() {
+        sendEmbed(":x: Server Stopped", channel, Color.RED);
+        getJda().shutdown();
     }
 
     public TextChannel getChannel() {
@@ -73,7 +76,12 @@ public final class BetaChatBridge extends JavaPlugin {
         return jda;
     }
 
-    public double getTps() {
-        return GetTps.getTPS();
+    public String getTps() {
+        if (!(Bukkit.getTPS()[0] > 20)) {
+            double roundOff = Math.round(Bukkit.getTPS()[0] * 100.0) / 100.0;
+            return String.valueOf(roundOff);
+        } else {
+            return "*20";
+        }
     }
 }

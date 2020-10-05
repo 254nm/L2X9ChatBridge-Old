@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Cooldown {
 
-    private final HashMap<Player, Double> cooldowns = new HashMap<Player, Double>();
+    private final HashMap<Player, Double> cooldowns = new HashMap<>();
 
     public void setCooldown(Player player, int seconds) {
         double delay = System.currentTimeMillis() + (seconds * 1000);

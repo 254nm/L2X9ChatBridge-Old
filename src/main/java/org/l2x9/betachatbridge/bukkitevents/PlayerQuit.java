@@ -2,20 +2,21 @@ package org.l2x9.betachatbridge.bukkitevents;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.l2x9.betachatbridge.BetaChatBridge;
 
 import java.awt.*;
 
-public class PlayerQuit extends PlayerListener {
+public class PlayerQuit implements Listener {
     BetaChatBridge plugin;
 
     public PlayerQuit(BetaChatBridge betaChatBridge) {
         plugin = betaChatBridge;
     }
 
-    @Override
+    @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         sendEmbed(event.getPlayer().getName(), plugin.getChannel());
     }

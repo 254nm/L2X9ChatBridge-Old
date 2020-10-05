@@ -15,7 +15,9 @@ public class MessageSendEvent extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getChannel().equals(plugin.getChannel()) && !event.getAuthor().isBot() && !event.getMessage().getContentRaw().startsWith("!=")) {
+        if (event.getChannel().equals(plugin.getChannel()) &&
+                !event.getAuthor().isBot() &&
+                !event.getMessage().getContentRaw().startsWith(">")) {
             String author = event.getAuthor().getAsTag().concat(">");
             Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "<Discord -> " + ChatColor.GRAY + author + " " + ChatColor.WHITE + event.getMessage().getContentRaw());
             event.getMessage().addReaction("✔").queue();

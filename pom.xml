@@ -56,8 +56,8 @@
 
     <repositories>
         <repository>
-            <id>bukkit</id>
-            <url>C:/Users/Mason/IdeaProjects/DiscordChatBridgeBeta/lib/server.jar</url>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
         <repository>
             <id>jcenter</id>
@@ -68,11 +68,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>caynon</artifactId>
-            <scope>system</scope>
-            <version>1.0</version>
-            <systemPath>C:/Users/Mason/IdeaProjects/DiscordChatBridgeBeta/lib/server.jar</systemPath>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>

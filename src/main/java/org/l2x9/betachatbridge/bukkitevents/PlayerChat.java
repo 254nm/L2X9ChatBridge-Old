@@ -10,6 +10,7 @@ import org.l2x9.betachatbridge.BetaChatBridge;
 import org.l2x9.betachatbridge.antispam.Cooldown;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class PlayerChat implements Listener {
     BetaChatBridge plugin;
@@ -22,7 +23,15 @@ public class PlayerChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Cooldown cm = plugin.cm;
         Player player = event.getPlayer();
-        if (cm.checkCooldown(player)) {
+        String[] words = event.getMessage().split(" ");
+        boolean hasBlockedWord = false;
+        for (String word : words) {
+            if (Objects.requireNonNull(plugin.getL2X9CoreBlockedWords()).contains(word.toLowerCase())) {
+                hasBlockedWord = true;
+                break;
+            }
+        }
+        if (cm.checkCooldown(player) && !hasBlockedWord) {
             cm.setCooldown(player, 1);
             sendEmbed(event.getMessage().replace("§a", ""), player.getName(), plugin.getChannel());
         }

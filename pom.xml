@@ -6,8 +6,8 @@
 
     <groupId>org.l2x9</groupId>
     <artifactId>L2X9ChatBridge</artifactId>
-    <version>1.0</version>
-    <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
 
     <name>L2X9ChatBridge</name>
 
@@ -21,7 +21,5 @@
     <modules>
         <module>chatbridge-beta</module>
         <module>chatbridge-plugin</module>
-        <module>chatbridge-util</module>
     </modules>
 </project>
-

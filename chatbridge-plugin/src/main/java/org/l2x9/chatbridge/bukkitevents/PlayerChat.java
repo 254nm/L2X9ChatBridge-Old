@@ -1,4 +1,4 @@
-package org.l2x9.chatbridgebeta.bukkitevents;
+package org.l2x9.chatbridge.bukkitevents;
 
 import me.alexprogrammerde.headapi.HeadAPI;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.l2x9.chatbridgebeta.ChatBridge;
-import org.l2x9.chatbridgebeta.antispam.Cooldown;
+import org.l2x9.chatbridge.ChatBridge;
+import org.l2x9.chatbridge.antispam.Cooldown;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class PlayerChat implements Listener {
         String[] words = event.getMessage().split(" ");
         boolean hasBlockedWord = false;
         for (String word : words) {
-            if (Objects.requireNonNull(plugin.getL2X9CoreBlockedWords()).contains(word.toLowerCase())) {
+            if (plugin.getConfig().getStringList("blockedwords").contains(word.toLowerCase())) {
                 hasBlockedWord = true;
                 break;
             }
@@ -51,11 +51,11 @@ public class PlayerChat implements Listener {
         } else {
             embedBuilder.setColor(Color.GRAY);
         }
-        embedBuilder.setImage("attachment://head.png");
+        embedBuilder.setThumbnail("attachment://head.png");
 
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(HeadAPI.getHeadImage(player), "png", os);
+            ImageIO.write(HeadAPI.resize(HeadAPI.getHeadImage(player), 30, 30), "png", os);
             InputStream is = new ByteArrayInputStream(os.toByteArray());
 
             channel.sendFile(is, "head.png").embed(embedBuilder.build()).queue();

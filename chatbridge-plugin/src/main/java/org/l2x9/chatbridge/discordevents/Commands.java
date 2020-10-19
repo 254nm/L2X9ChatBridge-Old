@@ -1,11 +1,11 @@
-package org.l2x9.chatbridgebeta.discordevents;
+package org.l2x9.chatbridge.discordevents;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.l2x9.chatbridgebeta.ChatBridge;
+import org.l2x9.chatbridge.ChatBridge;
 
 import java.awt.*;
 import java.util.ArrayList;

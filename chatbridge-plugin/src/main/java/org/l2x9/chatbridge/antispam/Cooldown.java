@@ -1,4 +1,4 @@
-package org.l2x9.chatbridgebeta.antispam;
+package org.l2x9.chatbridge.antispam;
 
 import org.bukkit.entity.Player;
 

@@ -3,16 +3,16 @@ package org.l2x9.chatbridgebeta.antispam;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.l2x9.chatbridgebeta.ChatBridge;
+import org.l2x9.chatbridgebeta.ChatBridgeBeta;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ChatEvent extends PlayerListener {
-    ChatBridge plugin;
+    ChatBridgeBeta plugin;
 
-    public ChatEvent(ChatBridge chatBridge) {
-        plugin = chatBridge;
+    public ChatEvent(ChatBridgeBeta chatBridgeBeta) {
+        plugin = chatBridgeBeta;
     }
 
     @Override

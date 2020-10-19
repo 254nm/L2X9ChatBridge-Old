@@ -1,10 +1,11 @@
-package org.l2x9.chatbridgebeta.discordevents;
+package org.l2x9.chatbridge.discordevents;
 
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.l2x9.chatbridgebeta.ChatBridge;
+import org.l2x9.chatbridge.ChatBridge;
 
 public class MessageSendEvent extends ListenerAdapter {
     ChatBridge plugin;
@@ -20,7 +21,7 @@ public class MessageSendEvent extends ListenerAdapter {
                 !event.getMessage().getContentRaw().startsWith(">")) {
             String author = event.getAuthor().getAsTag().concat(">");
             Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "<Discord -> " + ChatColor.GRAY + author + " " + ChatColor.WHITE + event.getMessage().getContentRaw());
-            event.getMessage().addReaction(":white_check_mark:").queue();
+            event.getMessage().addReaction("\u2705").queue();
         }
     }
 }

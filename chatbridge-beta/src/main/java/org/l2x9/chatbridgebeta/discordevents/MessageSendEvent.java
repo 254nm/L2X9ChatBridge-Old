@@ -4,13 +4,13 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.l2x9.chatbridgebeta.ChatBridge;
+import org.l2x9.chatbridgebeta.ChatBridgeBeta;
 
 public class MessageSendEvent extends ListenerAdapter {
-    ChatBridge plugin;
+    ChatBridgeBeta plugin;
 
-    public MessageSendEvent(ChatBridge chatBridge) {
-        plugin = chatBridge;
+    public MessageSendEvent(ChatBridgeBeta chatBridgeBeta) {
+        plugin = chatBridgeBeta;
     }
 
     @Override

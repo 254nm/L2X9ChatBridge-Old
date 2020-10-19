@@ -5,16 +5,16 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.l2x9.chatbridgebeta.ChatBridge;
+import org.l2x9.chatbridgebeta.ChatBridgeBeta;
 import org.l2x9.chatbridgebeta.antispam.Cooldown;
 
 import java.awt.*;
 
 public class PlayerChat extends PlayerListener {
-    ChatBridge plugin;
+    ChatBridgeBeta plugin;
 
-    public PlayerChat(ChatBridge chatBridge) {
-        plugin = chatBridge;
+    public PlayerChat(ChatBridgeBeta chatBridgeBeta) {
+        plugin = chatBridgeBeta;
     }
 
     @Override

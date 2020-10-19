@@ -17,7 +17,7 @@ import org.l2x9.chatbridgebeta.discordevents.MessageSendEvent;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 
-public final class ChatBridge extends JavaPlugin {
+public final class ChatBridgeBeta extends JavaPlugin {
     TextChannel channel;
     public Cooldown cm = new Cooldown();
     String channelID = "760624272656826398";

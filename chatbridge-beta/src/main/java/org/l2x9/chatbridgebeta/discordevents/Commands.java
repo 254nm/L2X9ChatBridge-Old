@@ -5,17 +5,17 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.l2x9.chatbridgebeta.ChatBridge;
+import org.l2x9.chatbridgebeta.ChatBridgeBeta;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Commands extends ListenerAdapter {
-    ChatBridge plugin;
+    ChatBridgeBeta plugin;
 
-    public Commands(ChatBridge chatBridge) {
-        plugin = chatBridge;
+    public Commands(ChatBridgeBeta chatBridgeBeta) {
+        plugin = chatBridgeBeta;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Commands extends ListenerAdapter {
                 case "!=tps":
                     EmbedBuilder embedBuilder1 = new EmbedBuilder();
                     embedBuilder1.setTitle("Current TPS");
-                    embedBuilder1.setColor(ChatBridge.getTPSColor(plugin.getTps()));
+                    embedBuilder1.setColor(ChatBridgeBeta.getTPSColor(plugin.getTps()));
                     embedBuilder1.setDescription("Current TPS: " + Math.round(plugin.getTps()));
                     embedBuilder1.setAuthor(plugin.getJda().getSelfUser().getAsTag(), null, plugin.getJda().getSelfUser().getAvatarUrl());
                     event.getChannel().sendMessage(embedBuilder1.build()).queue();

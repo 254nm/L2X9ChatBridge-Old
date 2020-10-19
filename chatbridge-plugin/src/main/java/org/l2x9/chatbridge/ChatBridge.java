@@ -1,4 +1,4 @@
-package org.l2x9.chatbridgebeta;
+package org.l2x9.chatbridge;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -9,12 +9,12 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.l2x9.chatbridgebeta.antispam.Cooldown;
-import org.l2x9.chatbridgebeta.bukkitevents.PlayerChat;
-import org.l2x9.chatbridgebeta.bukkitevents.PlayerJoin;
-import org.l2x9.chatbridgebeta.bukkitevents.PlayerQuit;
-import org.l2x9.chatbridgebeta.discordevents.Commands;
-import org.l2x9.chatbridgebeta.discordevents.MessageSendEvent;
+import org.l2x9.chatbridge.bukkitevents.PlayerChat;
+import org.l2x9.chatbridge.discordevents.Commands;
+import org.l2x9.chatbridge.discordevents.MessageSendEvent;
+import org.l2x9.chatbridge.antispam.Cooldown;
+import org.l2x9.chatbridge.bukkitevents.PlayerJoin;
+import org.l2x9.chatbridge.bukkitevents.PlayerQuit;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
@@ -26,8 +26,8 @@ import java.util.List;
 public final class ChatBridge extends JavaPlugin {
     public Cooldown cm = new Cooldown();
     TextChannel channel;
-    String channelID = "Your channel id here";
-    String botToken = "Your token here";
+    String channelID;
+    String botToken;
     JDA jda;
 
     public static Color getTPSColor(String input) {
@@ -45,6 +45,11 @@ public final class ChatBridge extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
+        channelID = getConfig().getString("channelID");
+        botToken = getConfig().getString("botToken");
+
         try {
             jda = JDABuilder.createDefault(botToken).addEventListeners(new Object[]{
                     new MessageSendEvent(this),
@@ -55,7 +60,8 @@ public final class ChatBridge extends JavaPlugin {
         } catch (LoginException | InterruptedException e) {
             e.printStackTrace();
         }
-        //getServer().getPluginManager().registerEvents(new PlayerAdvancement(this), this); //TODO Add this feature
+
+        // getServer().getPluginManager().registerEvents(new PlayerAdvancement(this), this); //TODO: Add this feature
         getServer().getPluginManager().registerEvents(new PlayerChat(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
         getServer().getPluginManager().registerEvents(new PlayerQuit(this), this);

@@ -6,7 +6,7 @@
 
     <groupId>org.l2x9</groupId>
     <artifactId>L2X9ChatBridge</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
 
     <name>L2X9ChatBridge</name>

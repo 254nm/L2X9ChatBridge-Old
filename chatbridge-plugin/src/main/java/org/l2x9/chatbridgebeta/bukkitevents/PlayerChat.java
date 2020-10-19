@@ -1,5 +1,6 @@
 package org.l2x9.chatbridgebeta.bukkitevents;
 
+import me.alexprogrammerde.headapi.HeadAPI;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.bukkit.entity.Player;
@@ -9,7 +10,12 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.l2x9.chatbridgebeta.ChatBridge;
 import org.l2x9.chatbridgebeta.antispam.Cooldown;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class PlayerChat implements Listener {
@@ -33,18 +39,28 @@ public class PlayerChat implements Listener {
         }
         if (cm.checkCooldown(player) && !hasBlockedWord) {
             cm.setCooldown(player, 1);
-            sendEmbed(event.getMessage().replace("§a", ""), player.getName(), plugin.getChannel());
+            sendEmbed(event.getMessage().replace("§a", ""), player, plugin.getChannel());
         }
     }
 
-    private void sendEmbed(String message, String playerName, TextChannel channel) {
+    private void sendEmbed(String message, Player player, TextChannel channel) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setDescription("**<" + playerName + ">** " + message);
+        embedBuilder.setDescription("**<" + player.getName() + ">** " + message);
         if (message.startsWith(">")) {
             embedBuilder.setColor(new Color(110, 255, 59));
         } else {
             embedBuilder.setColor(Color.GRAY);
         }
-        channel.sendMessage(embedBuilder.build()).queue();
+        embedBuilder.setImage("attachment://head.png");
+
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(HeadAPI.getHeadImage(player), "png", os);
+            InputStream is = new ByteArrayInputStream(os.toByteArray());
+
+            channel.sendFile(is, "head.png").embed(embedBuilder.build()).queue();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

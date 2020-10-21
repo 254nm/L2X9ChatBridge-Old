@@ -1,7 +1,7 @@
 name: L2X9ChatbridgeBeta
-version: ${project.version}
+version: ${parent.version}
 main: org.l2x9.chatbridgebeta.BetaChatBridge
 prefix: L2X9ChatBridge
 authors: [ 254n_m, AlexProgrammerDE ]
-description: Discord chat bridge for minecraft beta 1.7
+description: ${parent.description}
 website: https://www.l2x9.org/

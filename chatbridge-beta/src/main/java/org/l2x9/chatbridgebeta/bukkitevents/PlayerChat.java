@@ -21,6 +21,7 @@ public class PlayerChat extends PlayerListener {
     public void onPlayerChat(PlayerChatEvent event) {
         Cooldown cm = plugin.cm;
         Player player = event.getPlayer();
+
         if (cm.checkCooldown(player)) {
             cm.setCooldown(player, 3);
             sendEmbed(event.getMessage(), player.getName(), plugin.getChannel());
@@ -31,8 +32,10 @@ public class PlayerChat extends PlayerListener {
 
     private void sendEmbed(String message, String playerName, TextChannel channel) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
+
         embedBuilder.setDescription("<" + playerName + "> " + message);
         embedBuilder.setColor(new Color(110, 255, 59));
+
         channel.sendMessage(embedBuilder.build()).queue();
     }
 }

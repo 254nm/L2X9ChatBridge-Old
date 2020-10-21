@@ -19,21 +19,18 @@ public class ChatEvent extends PlayerListener {
     public void onPlayerChat(PlayerChatEvent event) {
         Player player = event.getPlayer();
         List<String> list = Arrays.asList("discord", ".", "dot");
-        boolean hasBlackListedWord = false;
-        for (String word : list) {
-            if (event.getMessage().toLowerCase().contains(word)) {
-                event.setCancelled(true);
-                hasBlackListedWord = true;
 
+        for (String word : list) {
+            if (event.getMessage().toLowerCase().contains(word.toLowerCase())) {
+                event.setCancelled(true);
+                return;
             }
         }
-        if (hasBlackListedWord) {
-            if (!event.getMessage().startsWith(">")) {
-                sendMessage(event.getPlayer(), "<" + player.getName() + "> " + event.getMessage());
 
-            } else {
-                sendMessage(event.getPlayer(), "<" + player.getName() + "> " + "&a" + event.getMessage());
-            }
+        if (!event.getMessage().startsWith(">")) {
+            sendMessage(event.getPlayer(), "<" + player.getName() + "> " + event.getMessage());
+        } else {
+            sendMessage(event.getPlayer(), "<" + player.getName() + "> " + "&a" + event.getMessage());
         }
     }
 

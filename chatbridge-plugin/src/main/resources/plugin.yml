@@ -1,8 +1,8 @@
 name: L2X9ChatBridge
-version: ${project.version}
+version: ${parent.version}
 main: org.l2x9.chatbridge.ChatBridge
 authors: [ 254n_m, AlexProgrammerDE ]
-description: Discord chat bridge for minecraft beta 1.7
+description: ${parent.description}
 website: https://www.l2x9.org/
 softdepend:
   - L2X9Core

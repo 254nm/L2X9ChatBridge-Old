@@ -22,8 +22,10 @@ public class PlayerQuit extends PlayerListener {
 
     private void sendEmbed(String playerName, TextChannel channel) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
+
         embedBuilder.setDescription(":no_entry: " + playerName);
         embedBuilder.setColor(Color.RED);
+
         channel.sendMessage(embedBuilder.build()).queue();
     }
 }

@@ -1,5 +1,6 @@
 package org.l2x9.chatbridge.bukkitevents;
 
+import io.papermc.lib.PaperLib;
 import me.alexprogrammerde.headapi.HeadAPI;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -29,16 +30,21 @@ public class PlayerJoin implements Listener {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setDescription(":white_check_mark: " + player.getName());
         embedBuilder.setColor(Color.GREEN);
-        embedBuilder.setThumbnail("attachment://head.png");
 
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(HeadAPI.resize(HeadAPI.getHeadImage(player), 30, 30), "png", os);
-            InputStream is = new ByteArrayInputStream(os.toByteArray());
+        if (PaperLib.isPaper()) {
+            embedBuilder.setThumbnail("attachment://head.png");
 
-            channel.sendFile(is, "head.png").embed(embedBuilder.build()).queue();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(HeadAPI.resize(HeadAPI.getHeadImage(player), 30, 30), "png", os);
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+
+                channel.sendFile(is, "head.png").embed(embedBuilder.build()).queue();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            channel.sendMessage(embedBuilder.build()).queue();
         }
     }
 }

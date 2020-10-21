@@ -22,8 +22,10 @@ public class PlayerJoin extends PlayerListener {
 
     private void sendEmbed(String playerName, TextChannel channel) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
+
         embedBuilder.setDescription(":white_check_mark: " + playerName);
         embedBuilder.setColor(Color.GREEN);
+
         channel.sendMessage(embedBuilder.build()).queue();
     }
 }

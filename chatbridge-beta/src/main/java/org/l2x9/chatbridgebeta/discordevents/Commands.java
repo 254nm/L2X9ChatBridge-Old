@@ -29,6 +29,7 @@ public class Commands extends ListenerAdapter {
                     embedBuilder.setTitle("Online Players");
                     embedBuilder.setColor(Color.GRAY);
                     Player[] players = Bukkit.getServer().getOnlinePlayers();
+
                     if (players.length > 0) {
                         List<String> playerNames = new ArrayList<>();
                         for (Player player : players) {
@@ -41,14 +42,18 @@ public class Commands extends ListenerAdapter {
                     } else {
                         event.getChannel().sendMessage("No online players :flushed:").queue();
                     }
+
                     break;
                 case "!=tps":
                     EmbedBuilder embedBuilder1 = new EmbedBuilder();
+
                     embedBuilder1.setTitle("Current TPS");
                     embedBuilder1.setColor(ChatBridgeBeta.getTPSColor(plugin.getTps()));
                     embedBuilder1.setDescription("Current TPS: " + Math.round(plugin.getTps()));
                     embedBuilder1.setAuthor(plugin.getJda().getSelfUser().getAsTag(), null, plugin.getJda().getSelfUser().getAvatarUrl());
+
                     event.getChannel().sendMessage(embedBuilder1.build()).queue();
+
                     break;
             }
         }

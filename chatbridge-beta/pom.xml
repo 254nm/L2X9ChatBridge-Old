@@ -16,7 +16,7 @@
 
     <name>chatbridge-beta</name>
 
-    <description>Discord chat bridge for minecraft beta 1.7</description>
+    <description>${parent.description}</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

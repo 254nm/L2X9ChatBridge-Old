@@ -1,5 +1,6 @@
 package org.l2x9.chatbridge.bukkitevents;
 
+import io.papermc.lib.PaperLib;
 import me.alexprogrammerde.headapi.HeadAPI;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -16,7 +17,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerChat implements Listener {
     ChatBridge plugin;
@@ -27,18 +29,20 @@ public class PlayerChat implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        Cooldown cm = plugin.cm;
         Player player = event.getPlayer();
-        String[] words = event.getMessage().split(" ");
-        boolean hasBlockedWord = false;
-        for (String word : words) {
-            if (plugin.getConfig().getStringList("blockedwords").contains(word.toLowerCase())) {
-                hasBlockedWord = true;
-                break;
+        List<String> l2x9CoreList = plugin.getL2X9CoreBlockedWords();
+
+        // Check if the message has a blocked word or else return (Requires l2x9core)
+        if (l2x9CoreList != null) {
+            for (String word : l2x9CoreList) {
+                if (event.getMessage().toLowerCase().contains(word.toLowerCase())) {
+                    return;
+                }
             }
         }
-        if (cm.checkCooldown(player) && !hasBlockedWord) {
-            cm.setCooldown(player, 1);
+
+        if (plugin.cm.checkCooldown(player)) {
+            plugin.cm.setCooldown(player, 1);
             sendEmbed(event.getMessage().replace("§a", ""), player, plugin.getChannel());
         }
     }
@@ -51,16 +55,21 @@ public class PlayerChat implements Listener {
         } else {
             embedBuilder.setColor(Color.GRAY);
         }
-        embedBuilder.setThumbnail("attachment://head.png");
 
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(HeadAPI.resize(HeadAPI.getHeadImage(player), 30, 30), "png", os);
-            InputStream is = new ByteArrayInputStream(os.toByteArray());
+        if (PaperLib.isPaper()) {
+            embedBuilder.setThumbnail("attachment://head.png");
 
-            channel.sendFile(is, "head.png").embed(embedBuilder.build()).queue();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(HeadAPI.resize(HeadAPI.getHeadImage(player), 30, 30), "png", os);
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+
+                channel.sendFile(is, "head.png").embed(embedBuilder.build()).queue();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            channel.sendMessage(embedBuilder.build()).queue();
         }
     }
 }

@@ -16,6 +16,7 @@ import org.l2x9.chatbridge.antispam.Cooldown;
 import org.l2x9.chatbridge.bukkitevents.PlayerJoin;
 import org.l2x9.chatbridge.bukkitevents.PlayerQuit;
 
+import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 import java.io.File;
@@ -105,11 +106,13 @@ public final class ChatBridge extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("L2X9Core") != null) {
             FileConfiguration l2x9coreConfig = new YamlConfiguration();
             File l2x9conf = new File("plugins/L2X9Core/config.yml");
+
             try {
                 l2x9coreConfig.load(l2x9conf);
             } catch (IOException | InvalidConfigurationException e) {
                 e.printStackTrace();
             }
+
             return l2x9coreConfig.getStringList("Chat.Blocked-words");
         } else {
             return null;

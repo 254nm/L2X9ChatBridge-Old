@@ -9,14 +9,14 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.l2x9.chatbridge.bukkitevents.PlayerChat;
-import org.l2x9.chatbridge.discordevents.Commands;
-import org.l2x9.chatbridge.discordevents.MessageSendEvent;
 import org.l2x9.chatbridge.antispam.Cooldown;
+import org.l2x9.chatbridge.bukkitevents.PlayerAdvancement;
+import org.l2x9.chatbridge.bukkitevents.PlayerChat;
 import org.l2x9.chatbridge.bukkitevents.PlayerJoin;
 import org.l2x9.chatbridge.bukkitevents.PlayerQuit;
+import org.l2x9.chatbridge.discordevents.Commands;
+import org.l2x9.chatbridge.discordevents.MessageSendEvent;
 
-import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 import java.io.File;
@@ -62,7 +62,7 @@ public final class ChatBridge extends JavaPlugin {
             e.printStackTrace();
         }
 
-        // getServer().getPluginManager().registerEvents(new PlayerAdvancement(this), this); //TODO: Add this feature
+        getServer().getPluginManager().registerEvents(new PlayerAdvancement(this), this);
         getServer().getPluginManager().registerEvents(new PlayerChat(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
         getServer().getPluginManager().registerEvents(new PlayerQuit(this), this);

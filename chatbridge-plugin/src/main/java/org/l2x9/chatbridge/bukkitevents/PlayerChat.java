@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.l2x9.chatbridge.ChatBridge;
-import org.l2x9.chatbridge.antispam.Cooldown;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +16,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerChat implements Listener {

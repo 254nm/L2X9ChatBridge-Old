@@ -4,10 +4,11 @@ import io.papermc.lib.PaperLib;
 import me.alexprogrammerde.headapi.HeadAPI;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.l2x9.chatbridge.ChatBridge;
 
 import javax.imageio.ImageIO;
@@ -17,22 +18,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class PlayerJoin implements Listener {
+public class PlayerAdvancement implements Listener {
     ChatBridge plugin;
 
-    public PlayerJoin(ChatBridge chatBridge) {
+    public PlayerAdvancement(ChatBridge chatBridge) {
         plugin = chatBridge;
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        sendEmbed(event.getPlayer(), plugin.getChannel());
+    public void onPlayerAdvancement(PlayerAdvancementDoneEvent event) {
+        sendEmbed(event.getPlayer(), event.getAdvancement(), plugin.getChannel());
     }
 
-    private void sendEmbed(Player player, TextChannel channel) {
+    private void sendEmbed(Player player, Advancement advancement, TextChannel channel) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setDescription(":white_check_mark: " + player.getName());
-        embedBuilder.setColor(Color.GREEN);
+        embedBuilder.setDescription(":magic_wand: " + player.getName() + " did get the advancement " + advancement.getKey().getKey());
+        embedBuilder.setColor(Color.RED);
 
         if (PaperLib.isPaper()) {
             embedBuilder.setThumbnail("attachment://head.png");
